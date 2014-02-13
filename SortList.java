@@ -48,14 +48,14 @@ public class Solution {
     		if(firstHalf==null){
     			// do need to check if tail is null, since sortList will return at list one non-null node, so 
     			//the first two if conditionals wont be executed at first iteration.
-				resultTail.next = secondHalf;
-				resultTail = resultTail.next;
+			resultTail.next = secondHalf;
+			resultTail = resultTail.next;
     			secondHalf = secondHalf.next;
     			continue;
     		}
     		if(secondHalf==null){
-				resultTail.next = firstHalf;
-				resultTail = resultTail.next;
+			resultTail.next = firstHalf;
+			resultTail = resultTail.next;
     			firstHalf = firstHalf.next;
     			continue;
     		}
