@@ -41,11 +41,13 @@ public class Solution {
     	ListNode firstHalf = sortList(head);
     	ListNode secondHalf = sortList(rest);
 
-    	ListNode resultHead;
-    	ListNode resultTail;
+    	ListNode resultHead = null;
+    	ListNode resultTail = null;
 
     	while(firstHalf!=null||secondHalf!=null){
     		if(firstHalf==null){
+    			// do need to check if tail is null, since sortList will return at list one non-null node, so 
+    			//the first two if conditionals wont be executed at first iteration.
 				resultTail.next = secondHalf;
 				resultTail = resultTail.next;
     			secondHalf = secondHalf.next;
