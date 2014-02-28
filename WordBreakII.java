@@ -27,7 +27,7 @@ public class Solution {
     			}
     		}
     	}
-    	if(!splitPoint[length]){
+    	if(splitPoint[length]==false){
     		return result;
     	}
     	StringBuilder sb = new StringBuilder();
@@ -36,12 +36,12 @@ public class Solution {
     }
 
     public void helper(String s, int start, StringBuilder sb, ArrayList<String> result, Set<String> dict){
-    	if(start>=sb.length()){
+    	if(start>=s.length()){
     		String tempString = new String(sb);
     		result.add(tempString);
     		return;
     	}
-    	for(int i = start+1; i<s.length()+1; i++){
+    	for(int i = start+1; i<=s.length(); i++){
     		String tempString = s.substring(start, i);
     		if(dict.contains(tempString)){
     			int oldLen = sb.length();
