@@ -24,6 +24,7 @@ public class Solution {
     }
 }
 
+// fowards solution.
 // public class Solution {
 //     public int maxProfit(int[] prices) {
 //     	int len = prices.length;
