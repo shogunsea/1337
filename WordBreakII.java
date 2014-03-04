@@ -7,51 +7,53 @@
 // dict = ["cat", "cats", "and", "sand", "dog"].
 
 // A solution is ["cats and dog", "cat sand dog"].
-
-
-public class Solution {
-    public ArrayList<String> wordBreak(String s, Set<String> dict) {
-    	ArrayList<String> result = new ArrayList<String>();
-    	if(s.length()==0){
-    		return result;
-    	}
-    	int length = s.length();
-    	boolean[] splitPoint = new boolean[length+1];
-    	splitPoint[0] = true;
-    	for(int i = 1; i<length+1; i++){
-    		for(int j=0;j<i;j++){
-    			String tempString = s.substring(j,i);
-    			if(splitPoint[j]&&dict.contains(tempString)){
-    				splitPoint[i] = true;
-    				break;
-    			}
-    		}
-    	}
-    	if(splitPoint[length]==false){
-    		return result;
-    	}
-    	StringBuilder sb = new StringBuilder();
-    	helper(s, 0, sb, result, dict);
-    	return result;
+public class Solution{
+    public ArrayList<String> wordBreak(String s, Set<String> dict){
+        ArrayList<String> result = new ArrayList<String>();
+        int len = s.length();
+        boolean[] splitPoint = new boolean[len+1];
+        splitPoint[0] = true;
+        
+        for(int i = 1; i<len+1; i++){
+            for(int j = 0; j<i; j++){
+                String tempString = s.substring(j, i);
+                if(splitPoint[j]&&dict.contains(tempString)){
+                    splitPoint[i] = true;
+                    break;
+                }
+            }
+        } 
+        if(splitPoint[len]==false){
+            return result;
+        }
+        
+        
+        
+        
+        StringBuilder sb = new StringBuilder();
+        helper(s, result, sb, 0, dict);
+        return result;           
     }
-
-    public void helper(String s, int start, StringBuilder sb, ArrayList<String> result, Set<String> dict){
-    	if(start>=s.length()){
-    		String tempString = new String(sb);
-    		result.add(tempString);
-    		return;
-    	}
-    	for(int i = start+1; i<=s.length(); i++){
-    		String tempString = s.substring(start, i);
-    		if(dict.contains(tempString)){
-    			int oldLen = sb.length();
-    			if(oldLen!=0){
-    				sb.append(" ");
-    			}
-    			sb.append(tempString);
-    			helper(s, i, sb, result, dict);
-    			sb.delete(oldLen, sb.length());
-    		}
-    	}
-    }
+    
+    public void helper(String s, ArrayList<String> result, StringBuilder sb, int index, Set<String> dict){
+        if(index==s.length()){
+            String tempString = sb.toString();
+            sb = new StringBuilder();
+            result.add(tempString);
+            return;
+        }       
+        for(int i = index+1; i<s.length()+1; i++){
+            String tempString = s.substring(index, i);
+            if(dict.contains(tempString)){
+                int currentLength = sb.length();
+                if(currentLength!=0){
+                    sb.append(" ");
+                }
+                sb.append(tempString);
+                helper(s, result, sb, i, dict);
+                sb.delete(currentLength, sb.length());           
+            }        
+        }
+            
+   }
 }

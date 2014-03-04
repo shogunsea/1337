@@ -15,15 +15,36 @@
 
 // For now, the judge is able to judge based on one instance of gray code sequence. Sorry about that.
 
-public class Solution {
-    public ArrayList<Integer> grayCode(int n) {
-    	ArrayList<Integer> result = new ArrayList<Integer>();
-    	int size = 1<<n;
-    	for(int i =0; i<size; i++){
-    		int gray = i^(i>>1);
-    		result.add(gray);
-    	}
-    	return result;
+// Math definition approach.
+// public class Solution {
+//     public ArrayList<Integer> grayCode(int n) {
+//     	ArrayList<Integer> result = new ArrayList<Integer>();
+//     	int size = 1<<n;
+//     	for(int i =0; i<size; i++){
+//     		int gray = i^(i>>1);
+//     		result.add(gray);
+//     	}
+//     	return result;
         
+//     }
+// }
+
+// Observation approach.
+
+public class Solution{
+    public ArrayList<Integer> grayCode(int n){
+        ArrayList<Integer> result = new ArrayList<Integer>();
+        if(n==0){
+            result.add(0);
+            return result;
+        }
+        ArrayList<Integer> last = grayCode(n-1);
+        result.addAll(last);
+        int size = last.size();
+        for(int i = size-1; i>=0; i--){
+            int temp = (int)Math.pow(2,n-1) + last.get(i);
+            result.add(temp);
+        }
+        return result;
     }
 }

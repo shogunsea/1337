@@ -1,3 +1,6 @@
+// Sort a linked list in O(n log n) time using constant space complexity.
+
+
 /**
  * Definition for singly-linked list.
  * class ListNode {
@@ -46,7 +49,7 @@ public class Solution {
 
     	while(firstHalf!=null||secondHalf!=null){
     		if(firstHalf==null){
-    			// do need to check if tail is null, since sortList will return at list one non-null node, so 
+    			// do not need to check if tail is null, since sortList will return at list one non-null node, so 
     			//the first two if conditionals wont be executed at first iteration.
 			resultTail.next = secondHalf;
 			resultTail = resultTail.next;

@@ -5,29 +5,28 @@
 // Follow up:
 // Could you do this in-place?
 
-public class Solution {
-    public void rotate(int[][] matrix) {
-       if(matrix.length<1){
-       		return;
-       }
+public class Solution{
+    public void rotate(int[][] image){
+        int n = image.length;
+        
+        for(int layer = 0; layer<n/2; layer++){
+            int first = layer;
+            int last = n-1-layer;
+            for(int i = first; i< last; i++){
+                int offset = i- first;
+                int leftTop = image[first][i];
+                
+                // left corner to left top;
+                image[first][i] = image[last-offset][first];
+                // right corner to left corner
+                image[last-offset][first] = image[last][last-offset];
+                // right top to right corner
+                image[last][last-offset] = image[i][last];
+                // left top to right top
+                image[i][last] = leftTop;
+        
+            }
 
-       int n = matrix.length;
-
-       for(int layer = 0; layer<n/2; layer++){
-       		int first = layer;
-       		int last = n-1-layer;
-       		for(int i = first; i<last; i++){
-       			int offset = i - first;
-       			int top = matrix[first][i];
-
-       			matrix[first][i] = matrix[last-offset][first];
-
-       			matrix[last-offset][first] = matrix[last][last-offset];
-
-       			matrix[last][last-offset] = matrix[i][last];
-
-       			matrix[i][last] = top;
-       		}
-       }
-   }
+        }   
+    }
 }

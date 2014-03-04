@@ -1,30 +1,48 @@
-public class Solution {
- public int removeDuplicates(int[] A) {
- 	// the idea is that, it's similar to question I which removes the elements that
- 	// show up twice, here we remove elements that show up more than twice, we can use a 
- 	// variable to count how many times the variable has shown up, by comparing current element
- 	// with previous one, if they are different just reset counting variable to one, if not,first check
- 	// the value of counting variable, if it's two then we found the third occurence of same element
- 	// we need to remove it. To do this, we only increase fast index and continue the loop. At each loop
- 	// we copy value of fast index to slow index then increase both indexes.
- 	if(A.length<=1) return A.length;
- 	int slow = 1;
- 	int count = 1;
- 	for(int fast = 1;fast<A.length;){
- 		if(A[fast] == A[fast-1]){
- 			if(count==2){
- 				fast++;
- 				continue;
- 			}else{
- 				count++;
- 			}
- 		}else{
- 			count=1;
- 		}
- 		A[slow] = A[fast];
- 		slow++;
- 		fast++;
- 	}
- 	return slow;
- }
+// Follow up for "Remove Duplicates":
+// What if duplicates are allowed at most twice?
+
+// For example,
+// Given sorted array A = [1,1,1,2,2,3],
+
+// Your function should return length = 5, and A is now [1,1,2,2,3].
+
+
+public class Solution{
+    public int removeDuplicates(int[] nums){
+        int len = nums.length;
+        if(len==0){
+            return len;
+        }    
+        
+        int slow = 0;
+        int fast = 0;
+        int count = 0;
+        while(fast<=len-1){
+            if(nums[slow]==nums[fast]){
+                if(count==1){
+                    slow++;
+                    nums[slow] = nums[fast];
+                    fast++;
+                    count++;
+                }else if(count>=2){
+                    fast++;
+                    count++;
+                    continue;
+                }else if(count==0){
+                    count = 1;
+                    fast++;
+                    continue;
+                }
+            
+            }else{
+                count = 1;
+                slow++;
+                nums[slow] = nums[fast];
+                fast++;
+            }
+        }
+        
+        return slow+1;
+    
+    }
 }

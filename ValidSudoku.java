@@ -8,67 +8,53 @@
 // Note:
 // A valid Sudoku board (partially filled) is not necessarily solvable. Only the filled cells need to be validated.
 
-public class Solution {
-    public boolean isValidSudoku(char[][] board) {
-        int m = board.length;
-        int n = board[0].length;
-        if(m<1){
-        	return false;
+public class Solution{
+    public boolean isValidSudoku(char[][] board){
+        int n = 9;
+        
+        // Check rows and cols.
+        for(int i = 0; i<n; i++){
+            int[] rowCount = new int[n];
+            int[] colCount = new int[n];
+            for(int j = 0; j<n; j++){
+                if(board[i][j]!='.'){
+                    int row = board[i][j] - '0'-1;
+                    if(rowCount[row]==1){
+                        return false;
+                    }else{
+                        rowCount[row]++;
+                    }                  
+                }
+                if(board[j][i]!='.'){
+                    int col = board[j][i] - '0'-1;
+                    if(colCount[col]==1){
+                        return false;
+                    }else{
+                        colCount[col]++;
+                    }
+                }       
+            }
         }
-        // Check if all rows and cols are valid.
-        for(int i = 0; i<m; i++){
-        	int[] row_flag = new int[m];
-        	int[] col_flag = new int[n];
-        	for(int j = 0; j<n; j++){
-        		if(board[i][j]!='.'){
-        			int row_num = (board[i][j]-'0')-1;
-        			if(row_flag[row_num]>=1){
-        				return false;
-        			}
-        			row_flag[row_num]++;
-        		}
-
-        		if(board[j][i]!='.'){
-        			int col_num = (board[j][i]-'0')-1;
-        			if(col_flag[col_num]>=1){
-	        			return false;
-	        		}
-        			col_flag[col_num]++;
-        		}
-        		// int col_num = board[j][i]-1;
-        		// if(row_flag[row_num]>1){
-        		// 	return false;
-        		// }else if(col_flag[col_num]>1){
-        		// 	return false;
-        		// }
-        		// col_flag[col_num]++;
-        	}
-        }
-
-        // Check 9-neighbours area.
+        
+        // Check 3*3 neighbours.
         for(int i = 0; i<3; i++){
-        	for(int j = 0; j<3; j++){
-        		// flag for each element in the 3*3 area.
-        		int[] flag = new int [9];
-        		for(int k= 0; k<3; k++){
-        			for(int l = 0; l<3; l++){
-        				int x = i*3+k;
-        				int y = j*3+l;
-        				if(board[x][y]=='.'){
-        					continue;
-        				}
-        				int num = (board[x][y]-'0')-1;
-        				if(flag[num]>=1){
-        					return false;
-        				}else{
-        					flag[num]++;
-        				}
-        			}
-        		}
-        	}
+            for(int j = 0; j<3; j++){
+                int[] count = new int[n];
+                for(int k = 0;k<3; k++){
+                    for(int l = 0; l<3; l++){
+                        int x = i*3 + k;
+                        int y = j*3 + l;
+                        if(board[x][y]!='.'){
+                            int num = board[x][y]-'0'-1;
+                            if(count[num]==1){
+                                return false;
+                            }
+                            count[num]++;                      
+                        }
+                    }
+                }
+            }
         }
-
         return true;
-
     }
 }

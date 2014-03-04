@@ -6,21 +6,25 @@
 
 // Return true because "leetcode" can be segmented as "leet code".
 
-public class Solution {
-    public boolean wordBreak(String s, Set<String> dict) {
-    	boolean[] splitPoint = new boolean[s.length()+1];
-    	splitPoint[0] = true;
-
-    	for(int i = 1; i<s.length()+1; i++){
-    		for(int j = 0; j<i; j++){
-    			String tempString = s.substring(j,i);
-    			if(splitPoint[j]&&dict.contains(tempString)){
-    				splitPoint[i] = true;
-    				break;
-    			}
-    		}
-    	}
-
-    	return splitPoint[s.length()];
+public class Solution{
+    public boolean wordBreak(String s, Set<String> dict){
+         int len = s.length();
+         boolean[] splitPoint = new boolean[len+1];
+         splitPoint[0] = true;
+         
+         for(int i = 1; i<=len; i++){
+             for(int j = 0; j<i; j++){
+                 String temp = s.substring(j,i);
+                 if(splitPoint[j]&&dict.contains(temp)){
+                     splitPoint[i] = true;
+                     break;
+                 }
+             }
+         }
+         
+         return splitPoint[len];
+         
+     
+        
     }
 }
