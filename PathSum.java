@@ -12,19 +12,54 @@
 // return true, as there exist a root-to-leaf path 5->4->11->2 which sum is 22.
 
 
+
+// Recursive solution.
+// public class Solution{
+//     public boolean hasPathSum(TreeNode root, int sum){
+//        if(root==null){
+//            return false;
+//        }
+//        if(root.left==null&&root.right==null){
+//            return sum==root.val;
+//        }
+       
+//        boolean leftSum = hasPathSum(root.left, sum-root.val);
+//        boolean rightSum = hasPathSum(root.right, sum-root.val);
+       
+//        return leftSum || rightSum;
+          
+//     }
+// }
+
+// Iterative solution.
 public class Solution{
     public boolean hasPathSum(TreeNode root, int sum){
-       if(root==null){
-           return false;
-       }
-       if(root.left==null&&root.right==null){
-           return sum==root.val;
-       }
-       
-       boolean leftSum = hasPathSum(root.left, sum-root.val);
-       boolean rightSum = hasPathSum(root.right, sum-root.val);
-       
-       return leftSum || rightSum;
-          
-    }
-}
+        if(root==null){
+            return false;
+        }
+        
+        LinkedList<TreeNode> nodes = new LinkedList<TreeNode>();
+        LinkedList<Integer> sums = new LinkedList<Integer>();
+         nodes.add(root);
+         sums.add(root.val);
+         while(!nodes.isEmpty()){
+             TreeNode n = nodes.poll();
+             int s = sums.poll();
+             if(n.left==null&&n.right==null&&s==sum){
+                 return true;
+             }
+             
+             if(n.left!=null){
+                 nodes.add(n.left);
+                 sums.add(s+n.left.val);
+             }
+             
+             if(n.right!=null){
+                 nodes.add(n.right);
+                 sums.add(s+n.right.val);
+             }        
+         }
+         return false;
+         }
+ }
+      
