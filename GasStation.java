@@ -9,7 +9,8 @@
 
 public class Solution{
 	public int canCompleteCircuit(int[] gas, int[] cost){
-		int len = gas.length;
+		int len = cost.length;
+
 		for(int i = 0; i<len; i++){
 			int tank = gas[i];
 			int count = 0;
@@ -18,8 +19,8 @@ public class Solution{
 				if(tank-cost[j]<0){
 					break;
 				}
-				if(j==len-1){
-					tank = tank - cost[j] + gas[0];
+				if(j+1==len){
+					tank = tank - cost[j]+gas[0];
 					j = 0;
 				}else{
 					tank = tank - cost[j] + gas[j+1];
@@ -27,6 +28,7 @@ public class Solution{
 				}
 				count++;
 			}
+
 			if(count==len){
 				return i;
 			}
