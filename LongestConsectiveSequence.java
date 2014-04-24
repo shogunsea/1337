@@ -7,11 +7,38 @@
 // Your algorithm should run in O(n) complexity.
 
 
-public class Solution {
-    public int longestConsecutive(int[] num) {
 
 
-        
-        
-    }
+public class Solution{
+	public static int longestConsecutive(int[] num){
+		Set<Integer> set = new HashSet<Integer>();
+
+		for(int i: num){
+			set.add(i);
+		}
+
+		int max = 0;
+
+		for(int i = 0; i< num.length; i++){
+			if(set.contains(num[i])){
+				int next = num[i] - 1;
+				int count = 1;
+				set.remove(num[i]);
+				while(set.contains(next)){
+					next--;
+					count++;
+					set.remove(next);
+				}
+				previous = num[i] + 1;
+				while(set.contains(previous)){
+					previous++;
+					count++;
+					set.remove(previous);
+				}
+				max = Math.max(max, count);
+			}
+		}
+
+		return max;
+	}
 }
