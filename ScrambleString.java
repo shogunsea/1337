@@ -1,3 +1,5 @@
+// need to try dp approach
+
 public class Solution {
     public boolean isScramble(String s1, String s2) {
     	int l1 = s1.length();
