@@ -11,7 +11,7 @@
 // You should return [1,2,3,6,9,8,7,4,5].
 public class Solution {
     public ArrayList<Integer> spiralOrder(int[][] matrix) {
-        
+        if(matrix.length%2==0){        // no zuo no die.
         ArrayList<Integer> order = new ArrayList<Integer>(); 
         
         if (matrix.length == 0 || matrix[0].length == 0) return order;
@@ -70,5 +70,68 @@ public class Solution {
         }
 
         return order;
+        }else{
+        ArrayList<Integer> rst = new ArrayList<Integer>();
+        if(matrix == null || matrix.length == 0) 
+            return rst;
+        
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        // each layer contains 2 rows and 2 cols.
+        int coveredLayer = 0;
+        while(coveredLayer * 2 < rows && coveredLayer * 2 < cols){
+            for(int i = coveredLayer; i < cols-coveredLayer; i++)
+                rst.add(matrix[coveredLayer][i]);
+            
+            
+            for(int i = coveredLayer+1; i< rows-coveredLayer; i++)
+                rst.add(matrix[i][cols-coveredLayer-1]);
+            
+            if(rows - 2 * coveredLayer == 1 || cols - 2 * coveredLayer == 1)  // if only one row /col remains
+                break;
+                
+            for(int i = cols-coveredLayer-2; i>=coveredLayer; i--)
+                rst.add(matrix[rows-coveredLayer-1][i]);
+                
+            for(int i = rows-coveredLayer-2; i>= coveredLayer+1; i--)
+                rst.add(matrix[i][coveredLayer]);
+            
+            coveredLayer++;
+        }
+        return rst;
+
+        }
     }
+
+    // another version
+    // public ArrayList<Integer> spiralOrder(int[][] matrix) {
+    //     ArrayList<Integer> rst = new ArrayList<Integer>();
+    //     if(matrix == null || matrix.length == 0) 
+    //         return rst;
+        
+    //     int rows = matrix.length;
+    //     int cols = matrix[0].length;
+    //     // each layer contains 2 rows and 2 cols.
+    //     int coveredLayer = 0;
+    //     while(coveredLayer * 2 < rows && coveredLayer * 2 < cols){
+    //         for(int i = coveredLayer; i < cols-coveredLayer; i++)
+    //             rst.add(matrix[coveredLayer][i]);
+            
+            
+    //         for(int i = coveredLayer+1; i< rows-coveredLayer; i++)
+    //             rst.add(matrix[i][cols-coveredLayer-1]);
+            
+    //         if(rows - 2 * coveredLayer == 1 || cols - 2 * coveredLayer == 1)  // if only one row /col remains
+    //             break;
+                
+    //         for(int i = cols-coveredLayer-2; i>=coveredLayer; i--)
+    //             rst.add(matrix[rows-coveredLayer-1][i]);
+                
+    //         for(int i = rows-coveredLayer-2; i>= coveredLayer+1; i--)
+    //             rst.add(matrix[i][coveredLayer]);
+            
+    //         coveredLayer++;
+    //     }
+    //     return rst;
+    // }
 }   
