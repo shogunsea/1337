@@ -13,20 +13,25 @@
 public class Solution {
     public int[][] generateMatrix(int n) {
         
-        int[][] maxtrx = new int[n][n];
+        int[][] matrix = new int[n][n];
+        
+        if(n==0){
+            return matrix;
+        }
+        
         int xMin = 0;
         int xMax = n -1;
         int yMin = 0;
         int yMax = n - 1;
         int counter = 0;
         int x = 0, y = 0;
-        matrix[y][x] = counter++;
+        matrix[y][x] = ++counter;
 
         while(true){
 
         	while(x < xMax){
         		x++;
-        		matrix[y][x] = counter++;
+        		matrix[y][x] = ++counter;
         	}
 
         	yMin++;
@@ -37,7 +42,7 @@ public class Solution {
 
         	while(y < yMax){
         		y++;
-        		matrix[y][x] = counter++;
+        		matrix[y][x] = ++counter;
         	}
 
         	xMax--;
@@ -46,9 +51,9 @@ public class Solution {
         		break;
         	}
 
-        	while(x >= xMin){
+        	while(x > xMin){
         		x--;
-        		matrix[y][x] = counter++;
+        		matrix[y][x] = ++counter;
         	}
 
         	yMax--;
@@ -57,9 +62,9 @@ public class Solution {
         		break;
         	}
 
-        	while(y >= yMin){
+        	while(y > yMin){
         		y--;
-        		matrix[y][x] = coutner++;
+        		matrix[y][x] = ++counter;
         	}
 
         	xMin++;

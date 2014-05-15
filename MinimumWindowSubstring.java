@@ -16,15 +16,42 @@ public class Solution {
         if(tLen==0 || sLen==0){
         	return "";
         }
-        HashMap<Character, Integer> map = new HashMap<Character, Integer>();
+        HashMap<Character, Integer> dict = new HashMap<Character, Integer>();
+        HashMap<Character, Integer> found = new HashMap<Character, Integer>();
         char[] tChars = T.toCharArray();
         char[] sChars = S.toCharArray();
         for(char c : tChars){
-        	map.put(c, map.containsKey(c)? map.get(c)+1: 1);
+        	dict.put(c, dict.containsKey(c)? dict.get(c)+1: 1);
+        	found.put(c, 0);
         }
-        
-        for(int i = 0; i<-len; i++){
+        int minStart = -1, minEnd = sLen, start = 0, end =0, count = 0;
+        for(; end<sLen; end++){
+        	char c = sChars[end];
+        	if(dict.containsKey(c)){
+        		found.put(c, found.get(c)+1);
 
+        		// increase to get the first window, then won't be
+        		// executed.
+        		if(found.get(c)<=dict.get(c)){
+	        		count++;
+	        	}
+
+	        	if(count==tLen){
+	        		while(!dict.containsKey(sChars[start])||found.get(sChars[start])>dict.get(sChars[start])){
+	        			if(dict.containsKey(sChars[start])){
+	        				if(found.get(sChars[start])>dict.get(sChars[start])){
+	        					found.put(sChars[start], found.get(sChars[start])-1);
+	        				}
+	        			}
+	        			start++;
+	        		}
+	        		if(end - start < minEnd - minStart ){
+	        			minEnd = end;
+	        			minStart = start;
+	        		}
+	        	}
+        	}
         }
-}
+        return minStart==-1? "" : S.substring(minStart, minEnd+1);
+    }
 }
